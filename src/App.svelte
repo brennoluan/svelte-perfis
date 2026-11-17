@@ -1,8 +1,10 @@
 <script lang="ts">
 	import Title from "./components/Title.svelte";
 
+	let inputValue = "brenno";
+
 	function onSubmit() {
-		console.log("Buscar usuário");
+		console.log(inputValue);
 	}
 </script>
 
@@ -11,7 +13,7 @@
 		<Title />
 		<div class="search-users">
 			<form on:submit|preventDefault={onSubmit}>
-				<input type="text" class="input" />
+				<input type="text" class="input" bind:value={inputValue} />
 
 				<div class="button-container">
 					<button type="submit" class="button">Buscar</button>
