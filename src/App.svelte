@@ -3,19 +3,19 @@
 	import TopBar from "./components/TopBar.svelte";
 	import type IUser from "./interfaces/IUser";
 
-	let user: IUser = {
-		login: "brennoluan",
-		avatar_url: "https://github.com/brennoluan.png",
-		profile_url: "https://github.com/brennoluan",
-		name: "Brenno Luan",
-		repositories_publics: 20,
-		followers: 30,
-	};
+	let user: IUser = null;
 
 	let inputValue = "brenno";
 
 	function onSubmit() {
-		console.log(inputValue);
+		user = {
+			login: "brennoluan",
+			avatar_url: "https://github.com/brennoluan.png",
+			profile_url: "https://github.com/brennoluan",
+			name: "Brenno Luan",
+			repositories_publics: 20,
+			followers: 30,
+		};
 	}
 </script>
 
@@ -32,35 +32,36 @@
 			</form>
 		</div>
 	</header>
+	{#if user}
+		<div class="card-user">
+			<TopBar />
+			<div class="user">
+				<div class="photo-container">
+					<a href={user.profile_url} target="_blank" rel="noopener">
+						<div
+							class="photo-user"
+							style:background-image="url({user.avatar_url})"
+						></div></a
+					>
+				</div>
 
-	<div class="card-user">
-		<TopBar />
-		<div class="user">
-			<div class="photo-container">
-				<a href={user.profile_url} target="_blank" rel="noopener">
-					<div
-						class="photo-user"
-						style:background-image="url({user.avatar_url})"
-					></div></a
-				>
-			</div>
-
-			<div class="user-details">
-				<div class="info">
-					Nome: <span>{user.name}</span>
-				</div>
-				<div class="info">
-					Usuário: <span>{user.login}</span>
-				</div>
-				<div class="info">
-					Seguidores: <span>{user.followers}</span>
-				</div>
-				<div class="info">
-					Repositórios: <span>{user.repositories_publics}</span>
+				<div class="user-details">
+					<div class="info">
+						Nome: <span>{user.name}</span>
+					</div>
+					<div class="info">
+						Usuário: <span>{user.login}</span>
+					</div>
+					<div class="info">
+						Seguidores: <span>{user.followers}</span>
+					</div>
+					<div class="info">
+						Repositórios: <span>{user.repositories_publics}</span>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{/if}
 </div>
 
 <style>
