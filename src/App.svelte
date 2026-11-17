@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Title from "./components/Title.svelte";
-	import TopBar from "./components/TopBar.svelte";
+	import User from "./components/User.svelte";
 	import type IUser from "./interfaces/IUser";
 
-	let user: IUser = null;
+	let user: IUser | null = null;
 
 	let inputValue = "brenno";
 
@@ -33,34 +33,7 @@
 		</div>
 	</header>
 	{#if user}
-		<div class="card-user">
-			<TopBar />
-			<div class="user">
-				<div class="photo-container">
-					<a href={user.profile_url} target="_blank" rel="noopener">
-						<div
-							class="photo-user"
-							style:background-image="url({user.avatar_url})"
-						></div></a
-					>
-				</div>
-
-				<div class="user-details">
-					<div class="info">
-						Nome: <span>{user.name}</span>
-					</div>
-					<div class="info">
-						Usuário: <span>{user.login}</span>
-					</div>
-					<div class="info">
-						Seguidores: <span>{user.followers}</span>
-					</div>
-					<div class="info">
-						Repositórios: <span>{user.repositories_publics}</span>
-					</div>
-				</div>
-			</div>
-		</div>
+		<User {user} />
 	{/if}
 </div>
 
@@ -127,47 +100,5 @@
 
 	.button:hover {
 		background: #4590ff;
-	}
-
-	.card-user {
-		margin-top: 65px;
-	}
-
-	.user {
-		padding: 28px 0;
-		background: rgba(255, 255, 255, 0.5);
-		box-shadow: -12px 37px 45px rgba(133, 127, 201, 0.18);
-		border-radius: 0px 0px 13px 13px;
-
-		display: flex;
-		justify-content: center;
-	}
-
-	.photo-container {
-		margin-right: 81px;
-	}
-
-	.photo-user {
-		width: 12.75rem;
-		height: 12.75rem;
-		border: 4.56px solid #2e80fa;
-		border-radius: 50%;
-		background-size: cover;
-	}
-
-	.user-details {
-		margin-right: 55px;
-	}
-
-	.user-details > .info {
-		font-weight: 600;
-		font-size: 20px;
-		line-height: 31px;
-		color: #395278;
-	}
-
-	.user-details > .info > span {
-		color: #6781a8;
-		font-weight: normal;
 	}
 </style>
