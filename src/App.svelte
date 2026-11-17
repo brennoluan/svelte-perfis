@@ -11,7 +11,7 @@
 	<header>
 		<Title />
 		<div class="search-users">
-			<Form bind:user />
+			<Form on:user={(e) => (user = e.detail)} />
 		</div>
 	</header>
 	{#if user}

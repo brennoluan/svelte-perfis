@@ -1,8 +1,14 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
     import type IUser from "../interfaces/IUser";
 
-    export let inputValue: string;
-    export let user: IUser | null;
+    let inputValue = "";
+
+    let errorStatus: number | null = null;
+
+    const dispatch = createEventDispatcher<{
+        user: IUser | null;
+    }>();
 
     async function onSubmit() {
         const response = await fetch(
@@ -10,17 +16,19 @@
         );
         const data = await response.json();
 
+        errorStatus = response.status;
+
         if (response.ok) {
-            user = {
+            dispatch("user", {
                 login: data.login,
                 avatar_url: data.avatar_url,
                 profile_url: data.html_url,
                 name: data.name,
                 repositories_publics: data.public_repos,
                 followers: data.followers,
-            };
+            });
         } else {
-            user = null;
+            dispatch("user", null);
         }
     }
 </script>
@@ -30,8 +38,13 @@
         type="text"
         class="input"
         bind:value={inputValue}
+        class:error-input={errorStatus === 404}
         placeholder="Digite o usuário do GitHub"
     />
+
+    {#if errorStatus === 404}
+        <span class="error">Usuário não encontrado!</span>
+    {/if}
 
     <div class="button-container">
         <button type="submit" class="button">Buscar</button>
@@ -56,6 +69,22 @@
         font-size: 19.5px;
         line-height: 26px;
         color: #6e8cba;
+    }
+
+    .error {
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        z-index: -1;
+        color: #ff003e;
+    }
+
+    .error-input {
+        border: 1px solid #ff003e;
     }
 
     .button-container {
