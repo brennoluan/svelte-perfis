@@ -3,6 +3,7 @@
     import type IUser from "../interfaces/IUser";
 
     export let user: IUser;
+    $: haveRepositories = Boolean(user.repositories_recents.length);
 </script>
 
 <div class="card-user">
@@ -33,6 +34,25 @@
                 Repositórios: <span>{user.repositories_publics}</span>
             </div>
         </div>
+        {#if haveRepositories}
+            <div class="repositories">
+                <h2 class="title">Repositórios Recentes:</h2>
+                <ul>
+                    {#each user.repositories_recents as repo}
+                        <li>
+                            <a
+                                class="repository"
+                                href={repo.html_url}
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                {repo.name}
+                            </a>
+                        </li>
+                    {/each}
+                </ul>
+            </div>
+        {/if}
     </div>
 </div>
 
@@ -77,5 +97,18 @@
     .user-details > .info > span {
         color: #6781a8;
         font-weight: normal;
+    }
+
+    .repositories > .title {
+        font-size: 20px;
+        line-height: 31px;
+        font-weight: 600;
+        color: #395278;
+    }
+    .repository {
+        font-size: 20px;
+        line-height: 31px;
+        color: #6781a8;
+        transition: color 0.2s;
     }
 </style>

@@ -1,6 +1,8 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
     import type IUser from "../interfaces/IUser";
+    import { searchRepositories, searchUser } from "../requests";
+    import mountUser from "../utils/mountUsers";
 
     let inputValue = "";
 
@@ -11,22 +13,16 @@
     }>();
 
     async function onSubmit() {
-        const response = await fetch(
-            `https://api.github.com/users/${inputValue}`,
-        );
-        const data = await response.json();
+        const response = await searchUser(inputValue);
+        const responseRepos = await searchRepositories(inputValue);
 
         errorStatus = response.status;
 
-        if (response.ok) {
-            dispatch("user", {
-                login: data.login,
-                avatar_url: data.avatar_url,
-                profile_url: data.html_url,
-                name: data.name,
-                repositories_publics: data.public_repos,
-                followers: data.followers,
-            });
+        if (response.ok && responseRepos.ok) {
+            const data = await response.json();
+            const dataRepos = await responseRepos.json();
+
+            dispatch("user", mountUser(data, dataRepos));
         } else {
             dispatch("user", null);
         }
