@@ -1,13 +1,15 @@
 <script lang="ts">
 	let name: string = "Brenno";
+	let description: string = "This is a my first Svelte app.";
+	let src: string =
+		"https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg";
+	let alt: string = "Cat image";
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
-	<p>
-		Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-		how to build Svelte apps.
-	</p>
+	<p>{description}</p>
+	<img {src} {alt} height="300" />
 </main>
 
 <style>
