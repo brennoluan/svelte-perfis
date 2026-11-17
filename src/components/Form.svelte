@@ -3,6 +3,7 @@
     import type IUser from "../interfaces/IUser";
     import { searchRepositories, searchUser } from "../requests";
     import mountUser from "../utils/mountUsers";
+    import Button from "./Button.svelte";
 
     let inputValue = "";
 
@@ -43,7 +44,10 @@
     {/if}
 
     <div class="button-container">
-        <button type="submit" class="button">Buscar</button>
+        <Button>
+            Buscar
+            <img src="/assets/lupa.svg" alt="ícone de busca" />
+        </Button>
     </div>
 </form>
 
@@ -90,26 +94,5 @@
         top: 0;
         bottom: 0;
         display: flex;
-    }
-
-    .button {
-        padding: 15px 24px;
-        border-radius: 8px;
-        border: none;
-        background: #2e80fa;
-        line-height: 26px;
-        color: #fff;
-        font-size: 22px;
-        cursor: pointer;
-
-        transition: background-color 0.2s;
-
-        display: flex;
-        align-items: center;
-        gap: 13px;
-    }
-
-    .button:hover {
-        background: #4590ff;
     }
 </style>

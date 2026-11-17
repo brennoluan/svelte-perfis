@@ -14,6 +14,7 @@
 			<Form on:user={(e) => (user = e.detail)} />
 		</div>
 	</header>
+
 	{#if user}
 		<User {user} />
 	{/if}
