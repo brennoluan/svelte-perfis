@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Title from "./components/Title.svelte";
+	import TopBar from "./components/TopBar.svelte";
 
 	let inputValue = "brenno";
 
@@ -21,6 +22,36 @@
 			</form>
 		</div>
 	</header>
+
+	<div class="card-user">
+		<TopBar />
+		<div class="user">
+			<div class="photo-container">
+				<a
+					href="https://github.com/brennoluan"
+					target="_blank"
+					rel="noopener"
+				>
+					<div class="photo-user"></div></a
+				>
+			</div>
+
+			<div class="user-details">
+				<div class="info">
+					Nome: <span>Brenno Luan</span>
+				</div>
+				<div class="info">
+					Usuário: <span>brennoluan</span>
+				</div>
+				<div class="info">
+					Seguidores: <span>30</span>
+				</div>
+				<div class="info">
+					Repositórios: <span>20</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <style>
@@ -86,5 +117,48 @@
 
 	.button:hover {
 		background: #4590ff;
+	}
+
+	.card-user {
+		margin-top: 65px;
+	}
+
+	.user {
+		padding: 28px 0;
+		background: rgba(255, 255, 255, 0.5);
+		box-shadow: -12px 37px 45px rgba(133, 127, 201, 0.18);
+		border-radius: 0px 0px 13px 13px;
+
+		display: flex;
+		justify-content: center;
+	}
+
+	.photo-container {
+		margin-right: 81px;
+	}
+
+	.photo-user {
+		width: 12.75rem;
+		height: 12.75rem;
+		border: 4.56px solid #2e80fa;
+		border-radius: 50%;
+		background-size: cover;
+		background-image: url("https://github.com/brennoluan.png");
+	}
+
+	.user-details {
+		margin-right: 55px;
+	}
+
+	.user-details > .info {
+		font-weight: 600;
+		font-size: 20px;
+		line-height: 31px;
+		color: #395278;
+	}
+
+	.user-details > .info > span {
+		color: #6781a8;
+		font-weight: normal;
 	}
 </style>
