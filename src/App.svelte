@@ -5,17 +5,26 @@
 
 	let user: IUser | null = null;
 
-	let inputValue = "brenno";
+	let inputValue = "";
 
-	function onSubmit() {
-		user = {
-			login: "brennoluan",
-			avatar_url: "https://github.com/brennoluan.png",
-			profile_url: "https://github.com/brennoluan",
-			name: "Brenno Luan",
-			repositories_publics: 20,
-			followers: 30,
-		};
+	async function onSubmit() {
+		const response = await fetch(
+			`https://api.github.com/users/${inputValue}`,
+		);
+		const data = await response.json();
+
+		if (response.ok) {
+			user = {
+				login: data.login,
+				avatar_url: data.avatar_url,
+				profile_url: data.html_url,
+				name: data.name,
+				repositories_publics: data.public_repos,
+				followers: data.followers,
+			};
+		} else {
+			user = null;
+		}
 	}
 </script>
 
@@ -24,7 +33,12 @@
 		<Title />
 		<div class="search-users">
 			<form on:submit|preventDefault={onSubmit}>
-				<input type="text" class="input" bind:value={inputValue} />
+				<input
+					type="text"
+					class="input"
+					bind:value={inputValue}
+					placeholder="Digite o usuário do GitHub"
+				/>
 
 				<div class="button-container">
 					<button type="submit" class="button">Buscar</button>
