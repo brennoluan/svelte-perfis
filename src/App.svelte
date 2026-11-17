@@ -1,6 +1,16 @@
 <script lang="ts">
 	import Title from "./components/Title.svelte";
 	import TopBar from "./components/TopBar.svelte";
+	import type IUser from "./interfaces/IUser";
+
+	let user: IUser = {
+		login: "brennoluan",
+		avatar_url: "https://github.com/brennoluan.png",
+		profile_url: "https://github.com/brennoluan",
+		name: "Brenno Luan",
+		repositories_publics: 20,
+		followers: 30,
+	};
 
 	let inputValue = "brenno";
 
@@ -27,27 +37,26 @@
 		<TopBar />
 		<div class="user">
 			<div class="photo-container">
-				<a
-					href="https://github.com/brennoluan"
-					target="_blank"
-					rel="noopener"
-				>
-					<div class="photo-user"></div></a
+				<a href={user.profile_url} target="_blank" rel="noopener">
+					<div
+						class="photo-user"
+						style:background-image="url({user.avatar_url})"
+					></div></a
 				>
 			</div>
 
 			<div class="user-details">
 				<div class="info">
-					Nome: <span>Brenno Luan</span>
+					Nome: <span>{user.name}</span>
 				</div>
 				<div class="info">
-					Usuário: <span>brennoluan</span>
+					Usuário: <span>{user.login}</span>
 				</div>
 				<div class="info">
-					Seguidores: <span>30</span>
+					Seguidores: <span>{user.followers}</span>
 				</div>
 				<div class="info">
-					Repositórios: <span>20</span>
+					Repositórios: <span>{user.repositories_publics}</span>
 				</div>
 			</div>
 		</div>
@@ -143,7 +152,6 @@
 		border: 4.56px solid #2e80fa;
 		border-radius: 50%;
 		background-size: cover;
-		background-image: url("https://github.com/brennoluan.png");
 	}
 
 	.user-details {
